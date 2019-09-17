@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 .Palette {
   height: 100vh;
   overflow: hidden;
@@ -5,4 +7,55 @@
 
 .Palette-colors {
   height: 90%;
+}
+
+.Navbar {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  height: 6vh;
+}
+
+div.logo {
+  margin-right: 15px;
+  padding: 0 13px;
+  font-size: 22px;
+  background-color: #eceff1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.logo a {
+  font-family: 'Roboto', sans-serif;
+  text-decoration: none;
+  color: black;
+}
+
+.slider-container {
+  
+}
+
+.slider {
+  width: 400px;
+  margin: 0 10px;
+  display: inline-block;
+}
+
+div.rc-slider-track {
+  background-color: transparent;
+}
+div.rc-slider-rail {
+  height: 8px;
+}
+div.rc-slider-handle,
+div.rc-slider-handle:active,
+div.rc-slider-handle:focus,
+div.rc-slider-handle:hover {
+  background-color: green;
+  outline: none;
+  border: 2px solid green;
+  box-shadow: none;
+  width: 15px;
+  margin-top: -3px;
 }

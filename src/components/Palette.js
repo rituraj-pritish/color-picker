@@ -1,19 +1,26 @@
-import React from 'react'
+import React, { useState, useRef } from 'react';
 
-import './Palette.css'
 import ColorBox from './ColorBox';
 
-const Palette = (props) => {
-  const colorBoxes = props.colors.map(color => (
-    <ColorBox background={color.color} name={color.name} />
-  ))
+import Navbar from './Navbar';
+import './Palette.css';
+
+const Palette = props => {
+  const [level, updateLevel] = useState(500);
+
+  const changeLevel = newLevel => {
+    updateLevel(newLevel);
+  };
+
+  const colorBoxes = props.palette.colors[level].map(color => (
+    <ColorBox background={color.hex} name={color.name} />
+  ));
   return (
     <div className='Palette'>
-      <div className='Palette-colors'>
-        {colorBoxes}
-      </div>
+      <Navbar level={level} changeLevel={changeLevel} />
+      <div className='Palette-colors'>{colorBoxes}</div>
     </div>
-  )
-}
+  );
+};
 
-export default Palette
+export default Palette;

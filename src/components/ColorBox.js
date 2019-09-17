@@ -19,7 +19,7 @@ const ColorBox = ({ background, name }) => {
         <div className={`copy-overlay ${overlay && 'show'} `} />
         <div className={`overlay-text ${overlay && 'show'} `}>
           <h1>Copied...</h1>
-          <p>{name}</p>
+          <p>{background}</p>
         </div>
         <div className='copy-container'>
           <div className='box-content'>

@@ -12,8 +12,9 @@
 .Navbar {
   display: flex;
   align-items: center;
-  /* justify-content: center; */
+  /* justify-content: space-between; */
   height: 6vh;
+  position: relative;
 }
 
 div.logo {
@@ -33,7 +34,7 @@ div.logo {
 }
 
 .slider-container {
-  
+
 }
 
 .slider {
@@ -58,4 +59,22 @@ div.rc-slider-handle:hover {
   box-shadow: none;
   width: 15px;
   margin-top: -3px;
+}
+
+.select-container {
+  margin:0 10px 0 auto;
+}
+
+.Palette-footer {
+  background: white;
+  height: 5vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-weight: bold;
+}
+
+.emoji {
+  font-size: 1.2rem;
+  margin: 0 4px;
 }

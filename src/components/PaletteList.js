@@ -1,16 +1,16 @@
 import React from 'react';
 import MiniPalette from './MiniPalette';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/styles';
 
 const styles = {
   root: {
-    background: 'blue',
-    height: '100vh',
     display: 'flex',
     alignItems: 'flex-start',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: 'blue',
+    height: '100vh'
   },
   container: {
     width: '50%',
@@ -19,13 +19,24 @@ const styles = {
     flexDirection: 'column',
     flexWrap: 'wrap'
   },
-  nav: {},
+  header: {
+    margin: '10px 0',
+    width: '100%',
+    display: 'flex',
+  },
   palettes: {
     boxSizing: 'border-box',
     width: '100%',
     display: 'grid',
     gridTemplateColumns: 'repeat(3,30%)',
     gridGap: '5%'
+  },
+  link: {
+    marginLeft: 'auto',
+    '& a': {
+      textDecoration: 'none',
+      color: '#fff'
+    }
   }
 };
 
@@ -39,6 +50,12 @@ const PaletteList = props => {
   return (
     <div className={classes.root}>
       <div className={classes.container}>
+        <div className={classes.header}>
+          <span>Color Picker</span>
+          <span className={classes.link}>
+            <Link to='/palette/new'>Create Palette</Link>
+          </span>
+        </div>
         <div className={classes.palettes}>
           {palettes.map(palette => (
             <MiniPalette

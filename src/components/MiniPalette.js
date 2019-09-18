@@ -17,7 +17,7 @@ const styles = {
   },
   colors: {
     backgroundColor: '#dae1e4',
-    height: '150px',
+    height: '100px',
     width: '100%',
     borderRadius: '5px',
     overflow: 'hidden'
@@ -29,11 +29,15 @@ const styles = {
     margin: '0',
     color: 'black',
     paddingTop: '0.5rem',
-    position: 'relative'
+    position: 'relative',
+    backgroundColor: '#dae1e4',
+
   },
   emoji: {
     marginLeft: '0.5rem',
-    fontSize: '1.5rem'
+    fontSize: '1.5rem',
+    backgroundColor: '#dae1e4',
+
   },
   miniColor: {
     height: '25%',

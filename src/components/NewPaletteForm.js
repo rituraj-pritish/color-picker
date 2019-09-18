@@ -15,6 +15,7 @@ import { ChromePicker } from 'react-color';
 import { Button } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import NewColorbox from './NewColorbox';
+// import useStyles from './NewPaletteForm.styles';
 
 const drawerWidth = 330;
 
@@ -75,14 +76,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NewPaletteForm = () => {
+const NewPaletteForm = props => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [currentColor, changeColor] = useState('#458474');
   const [colors, updateColors] = useState([]);
-  const [text, updateText] = useState('');
+  const [colorName, updateColorName] = useState('');
+  const [newPaletteName, updateNewPaletteName] = useState('');
 
+  //custom form validators
   useEffect(() => {
     ValidatorForm.addValidationRule('isUniqueName', value =>
       colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase())
@@ -90,7 +93,13 @@ const NewPaletteForm = () => {
     ValidatorForm.addValidationRule('isUniqueColor', value =>
       colors.every(({ color }) => color !== currentColor)
     );
-  }, [colors]);
+    ValidatorForm.addValidationRule('isUniquePalette', value =>
+      props.palettes.every(
+        ({ paletteName }) =>
+          paletteName.toLowerCase() !== newPaletteName.toLowerCase()
+      )
+    );
+  }, [colors, currentColor, newPaletteName, props.palettes]);
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -103,9 +112,26 @@ const NewPaletteForm = () => {
   const addNewColor = () => {
     const newColor = {
       color: currentColor,
-      name: text
+      name: colorName
     };
     updateColors([...colors, newColor]);
+  };
+
+  const handleSave = () => {
+    let newName = newPaletteName;
+    const newPalette = {
+      paletteName: newName,
+      id: newName.toLowerCase().replace(/ /g, '-'),
+      colors: colors
+    };
+    props.savePalette(newPalette);
+    props.history.push('/');
+  };
+
+  const deleteColor = name => {
+    console.log(colors);
+    updateColors(colors.filter(color => color.name !== name));
+    console.log(colors);
   };
 
   return (
@@ -113,6 +139,7 @@ const NewPaletteForm = () => {
       <CssBaseline />
       <AppBar
         position='fixed'
+        color='default'
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open
         })}
@@ -130,6 +157,23 @@ const NewPaletteForm = () => {
           <Typography variant='h6' noWrap>
             Persistent drawer
           </Typography>
+          <ValidatorForm onSubmit={handleSave}>
+            <TextValidator
+              label='Palette Name'
+              value={newPaletteName}
+              validators={['required', 'isUniquePalette']}
+              errorMessages={[
+                'Name is Required',
+                'Palette name already exists'
+              ]}
+              onChange={e => {
+                updateNewPaletteName(e.target.value);
+              }}
+            />
+            <Button variant='contained' type='submit' color='primary'>
+              Save Palette
+            </Button>
+          </ValidatorForm>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -162,14 +206,14 @@ const NewPaletteForm = () => {
         />
         <ValidatorForm onSubmit={addNewColor}>
           <TextValidator
-            value={text}
+            value={colorName}
             validators={['required', 'isUniqueName', 'isUniqueColor']}
             errorMessages={[
               'Name required',
               'Name must be unique',
               'Color must be unique'
             ]}
-            onChange={e => updateText(e.target.value)}
+            onChange={e => updateColorName(e.target.value)}
           />
           <Button
             variant='contained'
@@ -189,7 +233,7 @@ const NewPaletteForm = () => {
         <div className={classes.drawerHeader} />
 
         {colors.map(color => (
-          <NewColorbox color={color} />
+          <NewColorbox key={color.name} deleteColor={deleteColor} color={color} />
         ))}
       </main>
     </div>

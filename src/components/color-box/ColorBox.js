@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import chroma from 'chroma-js';
 import { withStyles } from '@material-ui/styles';
 
 import styles from './ColorBox.styles.';
@@ -9,7 +8,6 @@ import styles from './ColorBox.styles.';
 
 const ColorBox = ({ background, name, classes }) => {
   const [overlay, setOverlay] = useState(false);
-  const isDarkColor = chroma(background).luminance() <= 0.5;
 
   const handleCopy = () => {
     setOverlay(true);

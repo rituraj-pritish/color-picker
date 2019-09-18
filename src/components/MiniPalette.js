@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/styles';
 
@@ -49,7 +48,7 @@ const styles = {
 };
 
 const MiniPalette = props => {
-  const { classes, paletteName, emoji, colors, id,goToPalette } = props;
+  const { classes, paletteName, emoji, colors,goToPalette } = props;
 
   const miniColorBoxes = colors.map(color => (
     <div

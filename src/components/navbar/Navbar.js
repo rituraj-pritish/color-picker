@@ -1,6 +1,6 @@
-import React, { useState } from 
-'react';
-import {Link} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/styles';
 
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -9,8 +9,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { IconButton } from '@material-ui/core';
+import styles from './Navbar.styles';
 
-const Navbar = ({ changeLevel, level, handleChange }) => {
+const Navbar = ({ changeLevel, level, handleChange, classes }) => {
   const [type, changeType] = useState('hex');
   const [snackbarOpen, toggleSnackbar] = useState(false);
 
@@ -21,13 +22,13 @@ const Navbar = ({ changeLevel, level, handleChange }) => {
   };
 
   return (
-    <nav className='Navbar'>
-      <div className='logo'>
+    <nav className={classes.root}>
+      <div className={classes.logo}>
         <Link to='/'>Color Picker</Link>
       </div>
-      <div className='slider-container'>
+      <div>
         <span className='level'>{level}</span>
-        <div className='slider'>
+        <div className={classes.slider}>
           <Slider
             defaultValue={level}
             min={100}
@@ -37,7 +38,7 @@ const Navbar = ({ changeLevel, level, handleChange }) => {
           />
         </div>
       </div>
-      <div className='select-container'>
+      <div className={classes.selectContainer}>
         <Select value={type} onChange={handleSelectChange}>
           <MenuItem value='hex'>hex - #ffffff</MenuItem>
           <MenuItem value='rgb'>rgb - rgb(255,255,255)</MenuItem>
@@ -69,4 +70,4 @@ const Navbar = ({ changeLevel, level, handleChange }) => {
   );
 };
 
-export default Navbar;
+export default withStyles(styles)(Navbar);

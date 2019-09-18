@@ -1,12 +1,33 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
+import { withStyles } from '@material-ui/styles';
 
-import ColorBox from './ColorBox';
+import ColorBox from './color-box/ColorBox';
+import Navbar from './navbar/Navbar';
 
-import Navbar from './Navbar';
-import './Palette.css';
+const styles = {
+  root: {
+    height: '100vh',
+    overflow: 'hidden'
+  },
+  paletteColors: {
+    height: '90%'
+  },
+  footer: {
+    background: 'white',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    fontWeight: 'bold'
+  },
+  emoji: {
+    fontSize: '1.2rem',
+    margin: '0 4px'
+  }
+};
 
 const Palette = props => {
-  const {colors,paletteName,emoji} = props.palette
+  const { colors, paletteName, emoji } = props.palette;
+  const { classes } = props;
 
   const [level, updateLevel] = useState(500);
   const [type, updateType] = useState('hex');
@@ -23,19 +44,19 @@ const Palette = props => {
     <ColorBox background={color[type]} name={color.name} key={color.id} />
   ));
   return (
-    <div className='Palette'>
+    <div className={classes.root}>
       <Navbar
         level={level}
         changeLevel={changeLevel}
         handleChange={handleChange}
       />
-      <div className='Palette-colors'>{colorBoxes}</div>
-      <footer className='Palette-footer'>
+      <div className={classes.paletteColors}>{colorBoxes}</div>
+      <footer className={classes.footer}>
         {paletteName}
-        <span className='emoji '>{emoji}</span>
+        <span className={classes.emoji}>{emoji}</span>
       </footer>
     </div>
   );
 };
 
-export default Palette;
+export default withStyles(styles)(Palette);

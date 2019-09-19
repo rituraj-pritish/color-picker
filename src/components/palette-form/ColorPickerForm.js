@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   addColor: {
     width: '100%',
     marginTop: '20px !important',
-    fontSize: '1.5rem'
+    fontSize: '1.2rem'
   },
   colorInput: {
     width: '100%',

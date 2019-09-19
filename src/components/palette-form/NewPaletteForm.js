@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -12,71 +12,15 @@ import ColorList from './ColorList';
 import arrayMove from 'array-move';
 import PaletteFormNavbar from './PaletteFormNavbar';
 import ColorPickerForm from './ColorPickerForm';
-// import useStyles from './NewPaletteForm.styles';
-
-const drawerWidth = 350;
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex'
-  },
-  hide: {
-    display: 'none'
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0
-  },
-  drawerPaper: {
-    width: drawerWidth
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end'
-  },
-  content: {
-    flexGrow: 1,
-    height: '90vh',
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    marginLeft: -drawerWidth
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    }),
-    marginLeft: 0
-  },
-  container: {
-    width: '90%',
-    height: '100%',
-    margin: 'auto',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  title: {
-    fontSize: '1.5rem',
-    margin: '-1rem 0 1.2rem 0'
-  }
-}));
+import useStyles from './NewPaletteForm.styles';
 
 const NewPaletteForm = props => {
-  const classes = useStyles();
-  const theme = useTheme();
+
+  const { classes,palettes,savePalette } = props;
   const [open, setOpen] = useState(false);
   const [currentColor, changeColor] = useState('#458474');
   const [colors, updateColors] = useState(props.palettes[0].colors);
   const [colorName, updateColorName] = useState('');
-  const [newPaletteName, updateNewPaletteName] = useState('');
   const paletteMax = colors.length >= 20;
 
   function handleDrawerOpen() {
@@ -95,17 +39,6 @@ const NewPaletteForm = props => {
     updateColors([...colors, newColor]);
   };
 
-  const handleSave = () => {
-    let newName = newPaletteName;
-    const newPalette = {
-      paletteName: newName,
-      id: newName.toLowerCase().replace(/ /g, '-'),
-      colors: colors
-    };
-    props.savePalette(newPalette);
-    props.history.push('/');
-  };
-
   const deleteColor = name => {
     updateColors(colors.filter(color => color.name !== name));
   };
@@ -115,21 +48,27 @@ const NewPaletteForm = props => {
   };
 
   const randomColor = () => {
-    const allColors = props.palettes.map(palette => palette.colors).flat();
+    const allColors = palettes.map(palette => palette.colors).flat();
     const random = Math.floor(Math.random() * allColors.length);
     const randomColor = allColors[random];
     updateColors([...colors, randomColor]);
+  };
+
+  //create new palette
+  const handleSave = newPalette => {
+    newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, '-');
+    newPalette.colors = colors;
+    savePalette(newPalette);
+    props.history.push('/');
   };
 
   return (
     <div className={classes.root}>
       <PaletteFormNavbar
         open={open}
-        newPaletteName={newPaletteName}
-        updateNewPaletteName={updateNewPaletteName}
         handleSave={handleSave}
         handleDrawerOpen={handleDrawerOpen}
-        palettes={props.palettes}
+        palettes={palettes}
       />
       <Drawer
         className={classes.drawer}
@@ -195,4 +134,4 @@ const NewPaletteForm = props => {
   );
 };
 
-export default NewPaletteForm;
+export default withStyles(useStyles)(NewPaletteForm);

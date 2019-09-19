@@ -1,6 +1,6 @@
 
 
-const drawerWidth = 330;
+const drawerWidth = 350;
 
 // export default useStyles = makeStyles(theme => ({
 //   root: {
@@ -79,7 +79,7 @@ export default (theme) => ({
   content: {
     flexGrow: 1,
     height: '90vh',
-    padding: theme.spacing(3),
+    padding: 0,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen

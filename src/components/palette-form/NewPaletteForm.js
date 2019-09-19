@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
+import {RemoveScrollBar} from 'react-remove-scroll-bar'
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { Button } from '@material-ui/core';
@@ -84,7 +84,6 @@ const NewPaletteForm = props => {
             <ChevronLeftIcon />
           </IconButton>
         </div>
-        <Divider />
         <div className={classes.container}>
           <Typography className={classes.title} variant='h4'>
             Design Your Palette
@@ -130,6 +129,7 @@ const NewPaletteForm = props => {
           onSortEnd={onSortEnd}
         />
       </main>
+      <RemoveScrollBar/>
     </div>
   );
 };

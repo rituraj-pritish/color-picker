@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import seedColors from './seedColors';
@@ -9,7 +9,8 @@ import Homepage from './components/Homepage';
 import NewPaletteForm from './components/palette-form/NewPaletteForm';
 
 const App = () => {
-  const [palettes, updatePalettes] = useState(seedColors);
+  const savedPalettes = JSON.parse(window.localStorage.getItem('palettes'));
+  const [palettes, updatePalettes] = useState(savedPalettes || seedColors);
 
   const findPalette = id => {
     return palettes.find(palette => palette.id === id);
@@ -18,6 +19,10 @@ const App = () => {
   const savePalette = newPalette => {
     updatePalettes([newPalette, ...palettes]);
   };
+
+  useEffect(() => {
+    window.localStorage.setItem('palettes',JSON.stringify(palettes));
+  },[palettes])
 
   return (
     <Switch>

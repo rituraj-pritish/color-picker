@@ -1,5 +1,6 @@
 import React from 'react';
 
+import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/styles';
 
 const styles = {
@@ -44,6 +45,15 @@ const styles = {
     display: 'inline-block',
     margin: '-3.5px auto',
     position: 'relative'
+  },
+  delete: {
+    position: 'absolute',
+    zIndex: '5',
+    background: 'red',
+    borderRadius: '3px',
+    right: 0,
+    marginRight: '8px',
+
   }
 };
 
@@ -60,6 +70,9 @@ const MiniPalette = props => {
 
   return (
     <div className={classes.root} onClick={goToPalette} >
+      <div className={classes.delete}>
+        <DeleteIcon/>
+      </div>
       <div className={classes.colors}>{miniColorBoxes}</div>
       <h5 className={classes.title}>
         {paletteName}

@@ -1,4 +1,5 @@
 import React from 'react';
+import {SortableElement} from 'react-sortable-hoc'
 
 import { makeStyles } from '@material-ui/styles';
 import { Delete } from '@material-ui/icons';
@@ -49,4 +50,4 @@ const NewColorbox = props => {
   );
 };
 
-export default NewColorbox;
+export default SortableElement(NewColorbox);

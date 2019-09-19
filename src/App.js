@@ -6,7 +6,7 @@ import Palette from './components/Palette';
 import { generatePalette } from './colorHelper';
 import './App.css';
 import Homepage from './components/Homepage';
-import NewPaletteForm from './components/NewPaletteForm';
+import NewPaletteForm from './components/palette-form/NewPaletteForm';
 
 const App = () => {
   const [palettes, updatePalettes] = useState(seedColors);

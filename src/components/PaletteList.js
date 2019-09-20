@@ -1,6 +1,7 @@
 import React from 'react';
 import MiniPalette from './MiniPalette';
 import { Link, withRouter } from 'react-router-dom';
+import sizes from './sizes';
 
 import { withStyles } from '@material-ui/styles';
 
@@ -17,19 +18,30 @@ const styles = {
     display: 'flex',
     alignItems: 'flex-start',
     flexDirection: 'column',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    [sizes.down('xs')]: {
+      width: '70%'
+    }
   },
   header: {
     margin: '10px 0',
     width: '100%',
     display: 'flex',
+    [sizes.down('xs')]: {
+      height: '3rem',
+      alignItems: 'center'
+    }
   },
   palettes: {
     boxSizing: 'border-box',
     width: '100%',
     display: 'grid',
     gridTemplateColumns: 'repeat(3,30%)',
-    gridGap: '5%'
+    gridGap: '5%',
+    [sizes.down('xs')]: {
+      gridGap: '2%',
+      gridTemplateColumns: '1fr'
+    }
   },
   link: {
     marginLeft: 'auto',
@@ -41,7 +53,7 @@ const styles = {
 };
 
 const PaletteList = props => {
-  const { palettes, classes } = props;
+  const { palettes, classes, deletePalette } = props;
 
   const goToPalette = id => {
     props.history.push(`/palette/${id}`);
@@ -60,6 +72,7 @@ const PaletteList = props => {
           {palettes.map(palette => (
             <MiniPalette
               key={palette.id}
+              deletePalette={deletePalette}
               {...palette}
               goToPalette={() => goToPalette(palette.id)}
             />

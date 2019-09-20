@@ -5,7 +5,7 @@ import NewColorbox from './NewColorbox';
 
 const ColorList = props => {
   return (
-    <div style={{ height: '100%' }}>
+    <div style={{ height: '100%',marginTop: '5px' }}>
       {props.colors.map((color,i) => (
         <NewColorbox
           index={i}

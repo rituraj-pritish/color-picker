@@ -4,8 +4,6 @@ import { withStyles } from '@material-ui/styles';
 
 import styles from './ColorBox.styles.';
 
-
-
 const ColorBox = ({ background, name, classes }) => {
   const [overlay, setOverlay] = useState(false);
 

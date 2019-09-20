@@ -1,5 +1,6 @@
 import React from 'react';
-import {SortableElement} from 'react-sortable-hoc'
+import { SortableElement } from 'react-sortable-hoc';
+import sizes from '../sizes';
 
 import { makeStyles } from '@material-ui/styles';
 import { Delete } from '@material-ui/icons';
@@ -15,6 +16,19 @@ const useStyles = makeStyles({
     '&:hover svg': {
       color: '#fff',
       transform: 'scale(1.3)'
+    },
+    [sizes.down('md')]: {
+      width: '25%',
+      height: '20%'
+    },
+    [sizes.down('sm')]: {
+      width: '50%',
+      height: '10%'
+    },
+    [sizes.down('xs')]: {
+      width: '100%',
+      display: 'flex',
+      height: '5.7%'
     }
   },
   boxContent: {

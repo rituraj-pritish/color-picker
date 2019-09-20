@@ -20,8 +20,15 @@ const App = () => {
     updatePalettes([newPalette, ...palettes]);
   };
 
+  const deletePalette = id => {
+    updatePalettes(palettes.filter(palette => palette.id !== id));
+  };
+
   useEffect(() => {
     window.localStorage.setItem('palettes',JSON.stringify(palettes));
+    if(palettes.length === 0) {
+      updatePalettes(seedColors)
+    }
   },[palettes])
 
   return (
@@ -37,11 +44,10 @@ const App = () => {
           />
         )}
       />
-      <Route exact path='/' render={() => <Homepage palettes={palettes} />} />
+      <Route exact path='/' render={() => <Homepage palettes={palettes} deletePalette={deletePalette} />} />
       <Route
         exact
         path='/palette/:id'
-        rout
         render={routeProps => (
           <Palette
             palette={generatePalette(findPalette(routeProps.match.params.id))}

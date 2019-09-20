@@ -2,63 +2,11 @@ import React from 'react';
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import { withStyles } from '@material-ui/styles';
+import styles from './MiniPalette.styles'
 
-const styles = {
-  root: {
-    backgroundColor: '#fff',
-    border: '1px solid black',
-    borderRadius: '5px',
-    padding: '0.5rem',
-    position: 'relative',
-    overflow: 'hidden',
-    '&:hover': {
-      cursor: 'pointer'
-    }
-  },
-  colors: {
-    backgroundColor: '#dae1e4',
-    height: '100px',
-    width: '100%',
-    borderRadius: '5px',
-    overflow: 'hidden'
-  },
-  title: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    margin: '0',
-    color: 'black',
-    paddingTop: '0.5rem',
-    position: 'relative',
-    backgroundColor: '#dae1e4',
-
-  },
-  emoji: {
-    marginLeft: '0.5rem',
-    fontSize: '1.5rem',
-    backgroundColor: '#dae1e4',
-
-  },
-  miniColor: {
-    height: '25%',
-    width: '20%',
-    display: 'inline-block',
-    margin: '-3.5px auto',
-    position: 'relative'
-  },
-  delete: {
-    position: 'absolute',
-    zIndex: '5',
-    background: 'red',
-    borderRadius: '3px',
-    right: 0,
-    marginRight: '8px',
-
-  }
-};
 
 const MiniPalette = props => {
-  const { classes, paletteName, emoji, colors,goToPalette } = props;
+  const { classes, paletteName, id, emoji, colors,goToPalette, deletePalette } = props;
 
   const miniColorBoxes = colors.map(color => (
     <div
@@ -68,9 +16,14 @@ const MiniPalette = props => {
     />
   ));
 
+  const handleDelete = e => {
+    e.stopPropagation()
+    deletePalette(id)
+  }
+
   return (
     <div className={classes.root} onClick={goToPalette} >
-      <div className={classes.delete}>
+      <div onClick={handleDelete} className={classes.delete}>
         <DeleteIcon/>
       </div>
       <div className={classes.colors}>{miniColorBoxes}</div>

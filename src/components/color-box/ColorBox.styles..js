@@ -1,4 +1,5 @@
-import chroma from 'chroma-js'
+import chroma from 'chroma-js';
+import sizes from '../sizes';
 
 export default {
   root: {
@@ -10,6 +11,18 @@ export default {
     marginBottom: '-7px',
     '&:hover button': {
       opacity: 1
+    },
+    [sizes.down('md')]: {
+      width: '25%',
+      height: '20%'
+    },
+    [sizes.down('sm')]: {
+      width: '50%',
+      height: '10%'
+    },
+    [sizes.down('xs')]: {
+      width: '100%',
+      height: '5%'
     }
   },
   copyText: {

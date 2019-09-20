@@ -1,9 +1,20 @@
+import sizes from '../sizes';
+
 export default {
   root: {
     display: 'flex',
     alignItems: 'center',
-    height: '6v',
-    position: 'relative'
+    height: '6vh',
+    position: 'relative',
+    [sizes.down('sm')]: {
+      height: '8vh'
+    },
+    [sizes.down('xs')]: {
+      height: '10vh',
+      margin: 'auto',
+      flexDirection: 'column',
+      paddingTop: '6px'
+    }
   },
   logo: {
     marginRight: '15px',
@@ -11,12 +22,16 @@ export default {
     fontSize: '22px',
     backgroundColor: '#eceff1',
     height: '100%',
+    minWidth: '150px',
     display: 'flex',
     alignItems: 'center',
     '& a': {
       fontFamily: 'Roboto, sans-serif',
       textDecoration: 'none',
       color: 'black'
+    },
+    [sizes.down('xs')]: {
+      display: 'none'
     }
   },
   slider: {
@@ -36,9 +51,21 @@ export default {
       boxShadow: 'none',
       width: '15px',
       marginTop: '-3px'
+    },
+    [sizes.down('sm')]: {
+      width: '300px'
+    },
+    [sizes.down('xs')]: {
+      width: '60vw'
     }
   },
   selectContainer: {
-    margin: '0 10px 0 auto'
+    margin: '0 10px 0 auto',
+    [sizes.down('xs')]: {
+      margin: 'auto'
+    }
+  },
+  back: {
+    display: 'none'
   }
 };

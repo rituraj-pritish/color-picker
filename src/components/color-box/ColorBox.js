@@ -3,6 +3,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { withStyles } from '@material-ui/styles';
 
 import styles from './ColorBox.styles.';
+import clsx from 'clsx';
 
 const ColorBox = ({ background, name, classes }) => {
   const [overlay, setOverlay] = useState(false);
@@ -17,11 +18,16 @@ const ColorBox = ({ background, name, classes }) => {
   return (
     <CopyToClipboard text={background} onCopy={handleCopy}>
       <div className={classes.root} style={{ background: background }}>
-        <div className={`${classes.copyOverlay} ${overlay && classes.copyOverlayShow} `} />
         <div
-          className={`${classes.overlayText} ${overlay && classes.overlayTextShow} ${
-            classes.copyText
-          } `}
+          className={clsx(classes.copyOverlay, {
+            [classes.copyOverlayShow]: overlay
+          })}
+        />
+
+        <div
+          className={clsx(classes.overlayText, {
+            [classes.overlayTextShow]: overlay
+          })}
         >
           <h1>Copied...</h1>
           <p>{background}</p>

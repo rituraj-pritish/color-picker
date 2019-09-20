@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/styles';
-import sizes from './sizes';
 
 import ColorBox from './color-box/ColorBox';
 import Navbar from './navbar/Navbar';

@@ -66,6 +66,17 @@ export default {
     }
   },
   back: {
-    display: 'none'
+    backgroundColor: 'purple',
+    borderRadius: '3px',
+    padding: '4px 6px',
+    marginRight: '30px',
+    display: 'none',
+    cursor: 'pointer',
+    [sizes.down('xs')]: {
+      display: 'inline-block'
+    },
+    [sizes.down('mb')]: {
+      display: 'inline-block'
+    }
   }
 };

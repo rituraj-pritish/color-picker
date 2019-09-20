@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {withRouter, Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 
 import Select from '@material-ui/core/Select';
@@ -11,7 +11,7 @@ import 'rc-slider/assets/index.css';
 import { IconButton } from '@material-ui/core';
 import styles from './Navbar.styles';
 
-const Navbar = ({ changeLevel, level, handleChange, classes,history }) => {
+const Navbar = ({ changeLevel, level, handleChange, classes, history }) => {
   const [type, changeType] = useState('hex');
   const [snackbarOpen, toggleSnackbar] = useState(false);
 
@@ -28,7 +28,7 @@ const Navbar = ({ changeLevel, level, handleChange, classes,history }) => {
       </div>
       <div>
         <span className='level'>{level}</span>
-        <span className={classes.back} onClick={() => history.push('/')} >BACK</span>
+
         <div className={classes.slider}>
           <Slider
             defaultValue={level}
@@ -40,6 +40,9 @@ const Navbar = ({ changeLevel, level, handleChange, classes,history }) => {
         </div>
       </div>
       <div className={classes.selectContainer}>
+        <span className={classes.back} onClick={() => history.push('/')}>
+          BACK
+        </span>
         <Select value={type} onChange={handleSelectChange}>
           <MenuItem value='hex'>hex - #ffffff</MenuItem>
           <MenuItem value='rgb'>rgb - rgb(255,255,255)</MenuItem>

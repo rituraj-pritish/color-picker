@@ -1,3 +1,5 @@
+import sizes from './sizes'
+
 export default {
   root: {
     backgroundColor: '#fff',
@@ -24,13 +26,13 @@ export default {
     alignItems: 'center',
     margin: '0',
     color: 'black',
-    paddingTop: '0.5rem',
+    padding: '5px 2px',
     position: 'relative',
     backgroundColor: '#dae1e4'
   },
   emoji: {
     marginLeft: '0.5rem',
-    fontSize: '1.5rem',
+    fontSize: '1rem',
     backgroundColor: '#dae1e4'
   },
   miniColor: {
@@ -49,7 +51,13 @@ export default {
       right: 0,
       marginRight: '8px',
       opacity: 0,
-      transition: 'all 0.3s ease-in-out'
+      transition: 'all 0.3s ease-in-out',
+      [sizes.down('xs')]: {
+        opacity: 1
+      },
+      [sizes.down('sm')]: {
+        opacity: 1
+      }
     }
   }
 };

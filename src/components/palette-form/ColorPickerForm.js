@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { ChromePicker } from 'react-color';
 import { makeStyles } from '@material-ui/styles';

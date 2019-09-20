@@ -1,17 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MiniPalette from './MiniPalette';
 import { Link, withRouter } from 'react-router-dom';
 import sizes from './sizes';
+import background from '../background.svg';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
+import Avatar from '@material-ui/core/Avatar';
+
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { withStyles } from '@material-ui/styles';
+import { ListItemText, ListItemAvatar } from '@material-ui/core';
 
 const styles = {
+  '@global': {
+    '.fade-exit': {
+      opacity: 1
+    },
+    '.fade-exit-active': {
+      opacity: 0,
+      transition: 'opacity 500ms ease-out'
+    }
+  },
   root: {
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    backgroundColor: 'blue',
-    height: '100vh'
+    height: '100vh',
+    overflow: 'scroll',
+    overflowX: 'hidden',
+    /* background by SVGBackgrounds.com */
+    backgroundColor: '#667DFF',
+    backgroundImage: `url(${background})`
   },
   container: {
     width: '50%',
@@ -38,7 +62,15 @@ const styles = {
     display: 'grid',
     gridTemplateColumns: 'repeat(3,30%)',
     gridGap: '5%',
-    [sizes.down('xs')]: {
+    [sizes.down('md')]: {
+      gridGap: '2%',
+      gridTemplateColumns: '1fr 1fr'
+    },
+    // [sizes.down('sm')]: {
+    //   gridGap: '2%',
+    //   gridTemplateColumns: '1fr 1fr'
+    // },
+    [sizes.down('mb')]: {
       gridGap: '2%',
       gridTemplateColumns: '1fr'
     }
@@ -53,10 +85,29 @@ const styles = {
 };
 
 const PaletteList = props => {
+  
+  const [box, setBox] = useState(false);
+  const [deletingId, setDeletingId] = useState('');
+
   const { palettes, classes, deletePalette } = props;
 
   const goToPalette = id => {
     props.history.push(`/palette/${id}`);
+  };
+
+  const openDialog = id => {
+    setBox(true);
+    setDeletingId(id);
+  };
+
+  const closeDialog = () => {
+    setBox(false);
+    setDeletingId('');
+  };
+
+  const handleDelete = () => {
+    deletePalette(deletingId);
+    closeDialog();
   };
 
   return (
@@ -68,17 +119,40 @@ const PaletteList = props => {
             <Link to='/palette/new'>Create Palette</Link>
           </span>
         </div>
-        <div className={classes.palettes}>
+        <TransitionGroup className={classes.palettes}>
           {palettes.map(palette => (
-            <MiniPalette
-              key={palette.id}
-              deletePalette={deletePalette}
-              {...palette}
-              goToPalette={() => goToPalette(palette.id)}
-            />
+            <CSSTransition key={palette.id} classNames='fade' timeout={500}>
+              <MiniPalette
+                key={palette.id}
+                openDialog={openDialog}
+                {...palette}
+                goToPalette={goToPalette}
+              />
+            </CSSTransition>
           ))}
-        </div>
+        </TransitionGroup>
       </div>
+      <Dialog open={box} onClose={closeDialog}>
+        <DialogTitle>Delete This Palette</DialogTitle>
+        <List>
+          <ListItem button onClick={handleDelete}>
+            <ListItemAvatar>
+              <Avatar style={{ backgroundColor: '#9eb2de', color: '#507fe6' }}>
+                <CheckIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText>Delete</ListItemText>
+          </ListItem>
+          <ListItem button onClick={closeDialog}>
+            <ListItemAvatar>
+              <Avatar style={{ backgroundColor: '#eb837a', color: '#cc473b' }}>
+                <CloseIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText>Cancel</ListItemText>
+          </ListItem>
+        </List>
+      </Dialog>
     </div>
   );
 };

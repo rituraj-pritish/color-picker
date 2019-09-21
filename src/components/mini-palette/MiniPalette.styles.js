@@ -1,4 +1,4 @@
-import sizes from './sizes'
+import sizes from '../sizes'
 
 export default {
   root: {

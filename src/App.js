@@ -6,7 +6,7 @@ import seedColors from './seedColors';
 import Palette from './components/Palette';
 import { generatePalette } from './colorHelper';
 import './App.css';
-import Homepage from './components/Homepage';
+import PaletteList from './components/palette-list/PaletteList';
 import NewPaletteForm from './components/palette-form/NewPaletteForm';
 import Page from './components/Page';
 
@@ -28,9 +28,6 @@ const App = () => {
 
   useEffect(() => {
     window.localStorage.setItem('palettes', JSON.stringify(palettes));
-    if (palettes.length === 0) {
-      updatePalettes(seedColors);
-    }
   }, [palettes]);
 
   return (
@@ -57,7 +54,7 @@ const App = () => {
                 path='/'
                 render={() => (
                   <Page>
-                    <Homepage
+                    <PaletteList
                       palettes={palettes}
                       deletePalette={deletePalette}
                     />

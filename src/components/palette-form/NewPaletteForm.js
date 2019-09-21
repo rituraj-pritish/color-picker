@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import seedColors from '../../seedColors'
 import {RemoveScrollBar} from 'react-remove-scroll-bar'
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
@@ -19,7 +20,7 @@ const NewPaletteForm = props => {
   const { classes,palettes,savePalette } = props;
   const [open, setOpen] = useState(false);
   const [currentColor, changeColor] = useState('#458474');
-  const [colors, updateColors] = useState(props.palettes[0].colors);
+  const [colors, updateColors] = useState(seedColors[0].colors);
   const [colorName, updateColorName] = useState('');
   const paletteMax = colors.length >= 20;
 

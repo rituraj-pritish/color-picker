@@ -2,10 +2,10 @@ import React from 'react'
 
 import PaletteList from './PaletteList';
 
-const Homepage = ({palettes,deletePalette}) => {
+const Homepage = () => {
   return (
     <div>
-      <PaletteList  deletePalette={deletePalette} palettes={palettes} />
+      <PaletteList />
     </div>
   )
 }

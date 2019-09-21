@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import {connect} from 'react-redux';
+
 import MiniPalette from './MiniPalette';
 import { Link, withRouter } from 'react-router-dom';
 import sizes from './sizes';
@@ -10,11 +12,10 @@ import ListItem from '@material-ui/core/ListItem';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import Avatar from '@material-ui/core/Avatar';
-
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-
 import { withStyles } from '@material-ui/styles';
 import { ListItemText, ListItemAvatar } from '@material-ui/core';
+import {deletePalette} from '../actions'
 
 const styles = {
   '@global': {
@@ -157,4 +158,8 @@ const PaletteList = props => {
   );
 };
 
-export default withRouter(withStyles(styles)(PaletteList));
+const mapStateToProps = state => ({
+  palettes: state.palettes.palettes
+})
+
+export default connect(mapStateToProps,{deletePalette})(withRouter(withStyles(styles)(PaletteList)));

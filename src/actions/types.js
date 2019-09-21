@@ -1,0 +1,2 @@
+export const CREATE_PALETTE = 'CREATE_PALETTE';
+export const REMOVE_PALETTE = 'REMOVE_PALETTE';

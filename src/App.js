@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { connect } from 'react-redux';
 
-import seedColors from './seedColors';
 import Palette from './components/Palette';
 import { generatePalette } from './colorHelper';
 import './App.css';
@@ -10,27 +10,15 @@ import Homepage from './components/Homepage';
 import NewPaletteForm from './components/palette-form/NewPaletteForm';
 import Page from './components/Page';
 
-const App = () => {
-  const savedPalettes = JSON.parse(window.localStorage.getItem('palettes'));
-  const [palettes, updatePalettes] = useState(savedPalettes || seedColors);
+const App = props => {
+  const { palettes } = props;
 
   const findPalette = id => {
     return palettes.find(palette => palette.id === id);
   };
 
-  const savePalette = newPalette => {
-    updatePalettes([newPalette, ...palettes]);
-  };
-
-  const deletePalette = id => {
-    updatePalettes(palettes.filter(palette => palette.id !== id));
-  };
-
   useEffect(() => {
     window.localStorage.setItem('palettes', JSON.stringify(palettes));
-    if (palettes.length === 0) {
-      updatePalettes(seedColors);
-    }
   }, [palettes]);
 
   return (
@@ -44,11 +32,7 @@ const App = () => {
                 path='/palette/new'
                 render={routeProps => (
                   <Page>
-                    <NewPaletteForm
-                      palettes={palettes}
-                      savePalette={savePalette}
-                      {...routeProps}
-                    />
+                    <NewPaletteForm {...routeProps} />
                   </Page>
                 )}
               />
@@ -57,10 +41,7 @@ const App = () => {
                 path='/'
                 render={() => (
                   <Page>
-                    <Homepage
-                      palettes={palettes}
-                      deletePalette={deletePalette}
-                    />
+                    <Homepage />
                   </Page>
                 )}
               />
@@ -86,4 +67,8 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = state => ({
+  palettes: state.palettes.palettes
+});
+
+export default connect(mapStateToProps)(App);

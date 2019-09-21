@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
-import {RemoveScrollBar} from 'react-remove-scroll-bar'
+import seedColors from '../../seedColors';
+import { RemoveScrollBar } from 'react-remove-scroll-bar';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -13,13 +15,13 @@ import arrayMove from 'array-move';
 import PaletteFormNavbar from './PaletteFormNavbar';
 import ColorPickerForm from './ColorPickerForm';
 import useStyles from './NewPaletteForm.styles';
+import { createPalette } from '../../actions';
 
 const NewPaletteForm = props => {
-
-  const { classes,palettes,savePalette } = props;
+  const { classes, palettes, createPalette } = props;
   const [open, setOpen] = useState(false);
   const [currentColor, changeColor] = useState('#458474');
-  const [colors, updateColors] = useState(props.palettes[0].colors);
+  const [colors, updateColors] = useState(seedColors[0].colors);
   const [colorName, updateColorName] = useState('');
   const paletteMax = colors.length >= 20;
 
@@ -49,13 +51,13 @@ const NewPaletteForm = props => {
 
   const randomColor = () => {
     const allColors = palettes.map(palette => palette.colors).flat();
-    let random 
-    let randomColor 
+    let random;
+    let randomColor;
     let isDuplicateColor = true;
-    while(isDuplicateColor) {
+    while (isDuplicateColor) {
       random = Math.floor(Math.random() * allColors.length);
       randomColor = allColors[random];
-      // eslint-disable-next-line 
+      // eslint-disable-next-line
       isDuplicateColor = colors.some(color => color.name === randomColor.name);
     }
     updateColors([...colors, randomColor]);
@@ -65,7 +67,7 @@ const NewPaletteForm = props => {
   const handleSave = newPalette => {
     newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, '-');
     newPalette.colors = colors;
-    savePalette(newPalette);
+    createPalette(newPalette);
     props.history.push('/');
   };
 
@@ -136,9 +138,16 @@ const NewPaletteForm = props => {
           onSortEnd={onSortEnd}
         />
       </main>
-      <RemoveScrollBar/>
+      <RemoveScrollBar />
     </div>
   );
 };
 
-export default withStyles(useStyles)(NewPaletteForm);
+const mapStateToProps = state => ({
+  palettes: state.palettes.palettes
+});
+
+export default connect(
+  mapStateToProps,
+  { createPalette }
+)(withStyles(useStyles)(NewPaletteForm));

@@ -13,10 +13,9 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { withStyles } from '@material-ui/styles';
 import { ListItemText, ListItemAvatar } from '@material-ui/core';
-import styles from './PaletteList.styles'
+import styles from './PaletteList.styles';
 
 const PaletteList = props => {
-  
   const [box, setBox] = useState(false);
   const [deletingId, setDeletingId] = useState('');
 
@@ -47,7 +46,9 @@ const PaletteList = props => {
         <div className={classes.header}>
           <span>Color Picker</span>
           <span className={classes.link}>
-            <Link to='/palette/new'>Create Palette</Link>
+            <Link className={classes.createBtn} to='/palette/new'>
+              Create Palette
+            </Link>
           </span>
         </div>
         <TransitionGroup className={classes.palettes}>

@@ -35,11 +35,17 @@ export default {
   header: {
     margin: '10px 0',
     width: '100%',
+    fontWeight: 'bold',
+    fontSize: '30px',
     display: 'flex',
     [sizes.down('xs')]: {
       height: '3rem',
-      alignItems: 'center'
+      alignItems: 'center',
+      fontSize: '20px'
     }
+  },
+  createBtn: {
+    fontSize: '20px'
   },
   palettes: {
     boxSizing: 'border-box',
